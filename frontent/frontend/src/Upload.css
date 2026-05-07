@@ -1,0 +1,124 @@
+/* Page background */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+/* ================= UPLOAD SECTION ================= */
+div:first-of-type {
+  text-align: center;
+  padding: 30px;
+  margin-top: 30px;
+}
+
+/* Upload heading */
+div:first-of-type h2 {
+  color: blueviolet;
+  margin-bottom: 15px;
+}
+
+/* File input */
+div:first-of-type input[type="file"] {
+  display: block;
+  margin: 15px auto;
+  padding: 10px;
+  width: 260px;
+  border: 2px dashed white;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  cursor: pointer;
+}
+
+/* Upload button */
+div:first-of-type button {
+  margin-top: 10px;
+  padding: 12px 25px;
+  background: white;
+  color: black;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+/* Hover */
+div:first-of-type button:hover {
+  transform: translateY(-2px);
+  background: #f0f0f0;
+}
+
+/* ================= DASHBOARD SECTION ================= */
+div:last-of-type {
+  margin-top: 50px;
+  padding: 20px;
+}
+
+/* Dashboard heading */
+div:last-of-type h2 {
+  text-align: center;
+  color: black;
+  margin-bottom: 20px;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Header */
+thead {
+  background: #0072ff !important;
+  color: white;
+}
+
+/* Cells */
+th, td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+/* Row hover */
+tbody tr:hover {
+  background: #f1f5ff;
+}
+
+/* No data text */
+p {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+}
+
+
+
+.dashboard-title{
+    text-align:center;
+    margin-top:0;
+    margin-bottom:2px;
+    padding:0;
+    line-height:1;
+}
+
+.summary-cards{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    margin-top:0;
+    padding-top:0;
+}
+
+.summary-cards div{
+    margin:0;
+    padding:0;
+}

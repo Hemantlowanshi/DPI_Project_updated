@@ -1,0 +1,50 @@
+/* Page styling */
+div {
+  background: #f4f7fb;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Header */
+thead {
+  background: #0072ff;
+  color: white;
+}
+
+th {
+  padding: 12px;
+  text-align: center;
+}
+
+/* Table cells */
+td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+/* Row hover */
+tbody tr:hover {
+  background: #f1f5ff;
+}
+
+/* No data text */
+p {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+}
