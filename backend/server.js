@@ -203,14 +203,16 @@
 
 
 
+
 const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const fs = require('fs');
 const pcapParser = require('pcap-parser');
 const cors = require('cors');
-const Packet = require('./models/Packet');
 
+const Packet = require('./models/Packet');
+ require('dotenv').config()
 
 
 
@@ -226,7 +228,11 @@ app.use(cors({
 }))
 /* ================== DATABASE ================== */
 
-mongoose.connect('mongodb://127.0.0.1:27017/dpiDB')
+// mongoose.connect('mongodb://127.0.0.1:27017/dpiDB')
+// .then(() => console.log("MongoDB Connected"))
+// .catch(err => console.log(err));
+
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log(err));
 
