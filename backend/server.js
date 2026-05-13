@@ -212,17 +212,18 @@ const cors = require('cors');
 const Packet = require('./models/Packet');
 
 
-app.use(cors({
-  origin: 'https://tumhara-frontend.onrender.com'  // apna frontend URL daalo
-}))
+
 
 const app = express();
+
 
 app.use(cors());
 app.use(express.json());
 
 
-
+app.use(cors({
+  origin: 'https://tumhara-frontend.onrender.com'  // apna frontend URL daalo
+}))
 /* ================== DATABASE ================== */
 
 mongoose.connect('mongodb://127.0.0.1:27017/dpiDB')
