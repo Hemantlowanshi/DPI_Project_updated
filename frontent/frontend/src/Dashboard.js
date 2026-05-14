@@ -94,7 +94,7 @@ function Dashboard() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/packets");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/packets`);
       setPackets(res.data);
     } catch (error) {
       console.error("Fetch Error:", error);
