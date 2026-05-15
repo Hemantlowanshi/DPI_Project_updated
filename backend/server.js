@@ -632,7 +632,7 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:3000',
-    'https://tumhara-frontend.onrender.com'  // apna actual Render URL daalo
+    'https://dpi-project-updated-fr.onrender.com'
   ]
 }));
 
