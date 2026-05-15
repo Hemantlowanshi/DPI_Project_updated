@@ -83,6 +83,7 @@
 // }
 
 // export default Dashboard;
+// REACT_APP_API_URL=http://localhost:5000
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
