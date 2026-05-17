@@ -1,128 +1,56 @@
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import './Upload.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import {
+  FaHome,
+  FaFileAlt,
+  FaLayerGroup,
+  FaProjectDiagram,
+  FaDatabase,
+  FaHeartbeat,
+  FaListAlt
+} from "react-icons/fa";
 
-// function Dashboard() {
-
-//   const [packets, setPackets] = useState([]);
-
-//   const fetchData = async () => {
-//     try {
-//       const res = await axios.get("http://localhost:5000/packets");
-//       console.log("Fetched Data:", res.data);
-//       setPackets(res.data);
-//     } catch (error) {
-//       console.error("Fetch Error:", error);
-//     }
-//   };
-
-//   useEffect(() => {
-
-//     fetchData();
-
-//     const interval = setInterval(() => {
-//       fetchData();
-//     }, 2000);
-
-//     return () => clearInterval(interval);
-
-//   }, []);
-
-//   return (
-
-//     <div style={{ padding: "20px" }}>
-
-//       <h2>DPI Packet Dashboard</h2>
-
-//       {packets.length === 0 ? (
-
-//         <p>No Packet Data Found</p>
-
-//       ) : (
-
-//         <table border="1" cellPadding="8" style={{ borderCollapse: "collapse", width: "100%" }}>
-
-//           <thead style={{ background: "#eee" }}>
-//             <tr>
-//               <th>Protocol</th>
-//               <th>Source IP</th>
-//               <th>Destination IP</th>
-//               <th>Src Port</th>
-//               <th>Dest Port</th>
-//               <th>Length</th>
-//               <th>Suspicious</th>
-//             </tr>
-//           </thead>
-
-//           <tbody>
-
-//             {packets.map((p) => (
-//               <tr key={p._id}>
-//                 <td>{p.protocol}</td>
-//                 <td>{p.srcIP}</td>
-//                 <td>{p.destIP}</td>
-//                 <td>{p.srcPort || "-"}</td>
-//                 <td>{p.destPort || "-"}</td>
-//                 <td>{p.length}</td>
-//                 <td>
-//                   {p.suspicious ?
-//                     <span style={{ color: "red", fontWeight: "bold" }}>🚨 YES</span>
-//                     : "NO"}
-//                 </td>
-//               </tr>
-//             ))}
-
-//           </tbody>
-
-//         </table>
-
-//       )}
-
-//     </div>
-//   );
-// }
-
-// export default Dashboard;
-// REACT_APP_API_URL=http://localhost:5000
-
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import './Upload.css';
+import "./Dashboard.css";
 
 function Dashboard() {
-
   const [packets, setPackets] = useState([]);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/packets`);
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/packets`
+      );
       setPackets(res.data);
     } catch (error) {
-      console.error("Fetch Error:", error);
+      console.error(error);
     }
   };
 
   useEffect(() => {
-
     fetchData();
-
-    const interval = setInterval(() => {
-      fetchData();
-    }, 2000);
-
+    const interval = setInterval(fetchData, 2000);
     return () => clearInterval(interval);
-
   }, []);
 
-  // Protocol Counts
-  const tcpCount = packets.filter(p => p.protocol === "TCP").length;
-  const udpCount = packets.filter(p => p.protocol === "UDP").length;
-  const icmpCount = packets.filter(p => p.protocol === "ICMP").length;
+  const tcpCount = packets.filter(
+    (p) => p.protocol === "TCP"
+  ).length;
 
-  // File Name
-  const uploadedFile = packets.length > 0 ? packets[0].filename : "No File";
+  const udpCount = packets.filter(
+    (p) => p.protocol === "UDP"
+  ).length;
 
-  // Port Service Name Function
+  const icmpCount = packets.filter(
+    (p) => p.protocol === "ICMP"
+  ).length;
+
+  const uploadedFile =
+    packets.length > 0
+      ? packets[0].filename
+      : "No File";
+
   const getServiceName = (port) => {
     switch (port) {
       case 80: return "HTTP";
@@ -131,38 +59,80 @@ function Dashboard() {
       case 22: return "SSH";
       case 25: return "SMTP";
       case 53: return "DNS";
-      case 19: return "CHARGEN";
-      case 23: return "TELNET";
       default: return "-";
     }
   };
 
   return (
+    <div className="dashboard">
 
-    <div style={{ padding: " 1px 20px" }}>
+      {/* Header */}
+      <div className="dashboard-header">
+        <div className="dashboard-title">
+          <h1>Packet Analysis Dashboard</h1>
+          <p>
+            Deep Packet Inspection &
+            Real-time Analysis
+          </p>
+        </div>
 
-<h2 className="dashboard-title">DPI Packet Dashboard</h2>
+        <button
+          className="home-btn"
+          onClick={() => navigate("/")}
+        >
+          <FaHome /> Home
+        </button>
+      </div>
 
-     
-<div className="summary-cards">
-    <div className="card"><strong>Total Packets:</strong> {packets.length}</div>
-    <div className="card"><strong>TCP:</strong> {tcpCount}</div>
-    <div className="card"><strong>UDP:</strong> {udpCount}</div>
-    <div className="card"><strong>ICMP:</strong> {icmpCount}</div>
-    <div className="card"><strong>Uploaded File:</strong> {uploadedFile}</div>
-</div>
+      {/* Cards */}
+      <div className="stats-container">
 
-    
+        <div className="stat-card blue">
+          <FaFileAlt className="card-icon" />
+          <h3>Uploaded File</h3>
+          <p>{uploadedFile}</p>
+          <span>PCAP File</span>
+        </div>
 
-      {packets.length === 0 ? (
+        <div className="stat-card sky">
+          <FaLayerGroup className="card-icon" />
+          <h3>Total Packets</h3>
+          <p>{packets.length}</p>
+          <span>Captured Packets</span>
+        </div>
 
-        <p>No Packet Data Found</p>
+        <div className="stat-card green">
+          <FaProjectDiagram className="card-icon" />
+          <h3>TCP Packets</h3>
+          <p>{tcpCount}</p>
+          <span>Transmission Control</span>
+        </div>
 
-      ) : (
+        <div className="stat-card purple">
+          <FaDatabase className="card-icon" />
+          <h3>UDP Packets</h3>
+          <p>{udpCount}</p>
+          <span>User Datagram</span>
+        </div>
 
-        <table border="1" cellPadding="8" style={{ borderCollapse: "collapse", width: "100%" }}>
+        <div className="stat-card red">
+          <FaHeartbeat className="card-icon" />
+          <h3>ICMP Packets</h3>
+          <p>{icmpCount}</p>
+          <span>Internet Control</span>
+        </div>
 
-          <thead style={{ background: "#eee" }}>
+      </div>
+
+      {/* Table */}
+      <div className="table-container">
+
+        <div className="table-title">
+          <FaListAlt /> Packet Details
+        </div>
+
+        <table>
+          <thead>
             <tr>
               <th>S.No</th>
               <th>Protocol</th>
@@ -177,7 +147,6 @@ function Dashboard() {
           </thead>
 
           <tbody>
-
             {packets.map((p, index) => (
               <tr key={p._id}>
                 <td>{index + 1}</td>
@@ -186,21 +155,36 @@ function Dashboard() {
                 <td>{p.destIP}</td>
                 <td>{p.srcPort || "-"}</td>
                 <td>{p.destPort || "-"}</td>
-                <td>{getServiceName(p.destPort)}</td>
+                <td>
+                  {getServiceName(
+                    p.destPort
+                  )}
+                </td>
                 <td>{p.length}</td>
                 <td>
-                  {p.suspicious ?
-                    <span style={{ color: "red", fontWeight: "bold" }}>🚨 YES</span>
-                    : "NO"}
+                  <span
+                    className={
+                      p.suspicious
+                        ? "danger"
+                        : "safe"
+                    }
+                  >
+                    {p.suspicious
+                      ? "YES"
+                      : "NO"}
+                  </span>
                 </td>
               </tr>
             ))}
-
           </tbody>
 
         </table>
 
-      )}
+      </div>
+
+      <div className="dashboard-footer">
+        © 2025 DPI Analyzer
+      </div>
 
     </div>
   );

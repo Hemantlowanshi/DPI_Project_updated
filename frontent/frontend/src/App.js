@@ -1,15 +1,16 @@
-import React from 'react';
-import Upload from './Upload';
-import Dashboard from './Dashboard';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Upload from "./Upload";
+import Dashboard from "./Dashboard";
 
 function App() {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>🛡️ DPI Network Traffic Analyzer</h1>
-      <Upload />
-      <hr />
-      <Dashboard />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Upload />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
 }
 
